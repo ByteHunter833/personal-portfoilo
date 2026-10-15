@@ -16,6 +16,8 @@
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
   --color-elevated: var(--elevated);
+  --color-terminal: var(--terminal);
+  --color-term-blue: var(--term-blue);
   --color-popover: var(--popover);
   --color-popover-foreground: var(--popover-foreground);
   --color-primary: var(--primary);
@@ -41,6 +43,8 @@
   --card: oklch(0.225 0.04 320);            /* #24182B */
   --card-foreground: oklch(0.955 0.01 315);
   --elevated: oklch(0.27 0.04 320);         /* #302338 */
+  --terminal: oklch(0.2 0.06 340);          /* Ubuntu aubergine, ~#300A24 */
+  --term-blue: oklch(0.7 0.1 250);          /* #729FCF prompt path */
   --popover: oklch(0.27 0.04 320);
   --popover-foreground: oklch(0.955 0.01 315);
   --primary: oklch(0.645 0.2 38);           /* #E95420 */
@@ -79,6 +83,21 @@
   }
 }
 
+/* Boot splash: an inline script in <head> adds .booting before first paint so the
+   page doesn't flash before the splash mounts. Failsafe reveals it if JS never runs. */
+html.booting body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  background: var(--color-background);
+  animation: boot-failsafe 0s 4s forwards;
+}
+
+@keyframes boot-failsafe {
+  to { visibility: hidden; }
+}
+
 @utility fade-up {
   animation: fade-up 0.5s ease-out both;
 }
@@ -86,4 +105,63 @@
 @keyframes fade-up {
   from { opacity: 0; transform: translateY(8px); }
   to { opacity: 1; transform: none; }
+}
+
+@utility cursor {
+  display: inline-block;
+  width: 0.6em;
+  height: 1.1em;
+  margin-left: 1px;
+  vertical-align: text-bottom;
+  background: var(--color-primary);
+  animation: blink 1s steps(1) infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+@utility reveal {
+  animation: fade-up 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+@utility window-open {
+  animation: window-open 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+@keyframes window-open {
+  from { opacity: 0; transform: scale(0.97) translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+
+@utility boot-out {
+  animation: boot-out 0.35s ease-in forwards;
+}
+
+@keyframes boot-out {
+  to { opacity: 0; transform: scale(1.02); }
+}
+
+@utility glow-hover {
+  transition: box-shadow 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+  &:hover {
+    border-color: color-mix(in oklab, var(--color-primary) 60%, transparent);
+    box-shadow: 0 0 0 1px color-mix(in oklab, var(--color-primary) 25%, transparent),
+      0 12px 40px -12px color-mix(in oklab, var(--color-primary) 45%, transparent);
+  }
+}
+
+/* Terminal block cursor: inverts the character under it and blinks, like GNOME Terminal. */
+@utility term-cursor {
+  background: var(--color-foreground);
+  color: var(--color-terminal);
+  animation: block-blink 1.1s steps(1) infinite;
+}
+
+@utility term-cursor-idle {
+  box-shadow: inset 0 0 0 1px var(--color-foreground);
+}
+
+@keyframes block-blink {
+  50% { background: transparent; color: var(--color-foreground); }
 }

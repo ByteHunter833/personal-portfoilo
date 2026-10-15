@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { projects } from "@/content/site";
 import { Page, SectionTitle } from "@/components/site/Layout";
 import { ProjectCard } from "@/components/site/Projects";
+import { Reveal } from "@/components/site/Reveal";
 
 export const Route = createFileRoute("/projects/")({
   head: () => ({
@@ -23,10 +24,10 @@ function ProjectsPage() {
         Each case study lists only confirmed facts, with a link to the source code.
       </SectionTitle>
       <div className="space-y-5">
-        <ProjectCard project={featured} />
+        <Reveal><ProjectCard project={featured} /></Reveal>
         <div className="grid gap-5 md:grid-cols-[1.4fr_1fr]">
-          <ProjectCard project={primary} />
-          {supporting.map((p) => <ProjectCard key={p.slug} project={p} />)}
+          <Reveal><ProjectCard project={primary} /></Reveal>
+          {supporting.map((p, i) => <Reveal key={p.slug} delay={80 * (i + 1)}><ProjectCard project={p} /></Reveal>)}
         </div>
       </div>
     </Page>

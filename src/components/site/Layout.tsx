@@ -1,6 +1,8 @@
 import { Link } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 import { profile } from "@/content/site";
+import { PROMPT_USER } from "@/lib/terminal";
+import { TypedText } from "./TypedText";
 
 const nav = [
   { to: "/projects", label: "Projects" },
@@ -22,8 +24,8 @@ export function SiteHeader() {
               <li key={n.to}>
                 <Link
                   to={n.to}
-                  className="text-muted-foreground transition-colors hover:text-foreground"
-                  activeProps={{ className: "text-foreground underline decoration-primary decoration-2 underline-offset-8" }}
+                  className="relative py-1 text-muted-foreground transition-colors after:absolute after:-bottom-0.5 after:left-0 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:rounded after:bg-primary after:transition-transform after:duration-300 hover:text-foreground hover:after:scale-x-100"
+                  activeProps={{ className: "text-foreground after:scale-x-100" }}
                 >
                   {n.label}
                 </Link>
@@ -64,21 +66,34 @@ export function Page({ children }: { children: ReactNode }) {
 export function SectionTitle({ cmd, title, children }: { cmd: string; title: string; children?: ReactNode }) {
   return (
     <div className="mb-10">
-      <p className="font-mono text-sm text-muted-foreground"><span className="text-primary">$</span> {cmd}</p>
+      <p className="font-mono text-sm text-muted-foreground">
+        <span className="text-primary">$</span> <TypedText text={cmd} delay={150} cursor="always" />
+      </p>
       <h1 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">{title}</h1>
       {children && <p className="mt-3 max-w-2xl text-muted-foreground">{children}</p>}
     </div>
   );
 }
 
+export function Prompt({ path = "~" }: { path?: string }) {
+  return (
+    <span className="shrink-0">
+      <span className="font-bold text-success">{PROMPT_USER}</span>:<span className="font-bold text-term-blue">{path}</span>$
+    </span>
+  );
+}
+
+// GNOME Terminal (Yaru) style window: centered title, window controls on the right.
 export function TerminalWindow({ title, children, className = "" }: { title: string; children: ReactNode; className?: string }) {
   return (
-    <div className={`overflow-hidden rounded-lg border border-border bg-card shadow-2xl ${className}`}>
-      <div className="flex items-center gap-2 border-b border-border bg-elevated px-4 py-2.5">
-        <span aria-hidden className="h-3 w-3 rounded-full bg-primary" />
-        <span aria-hidden className="h-3 w-3 rounded-full bg-muted-foreground/40" />
-        <span aria-hidden className="h-3 w-3 rounded-full bg-muted-foreground/40" />
-        <span className="ml-2 font-mono text-xs text-muted-foreground">{title}</span>
+    <div className={`window-open glow-hover overflow-hidden rounded-xl border border-border bg-terminal shadow-2xl ${className}`}>
+      <div className="relative flex items-center justify-center border-b border-black/30 bg-elevated px-4 py-2.5">
+        <span className="truncate px-16 font-mono text-xs font-bold text-muted-foreground">{title}</span>
+        <span aria-hidden className="absolute right-3 flex items-center gap-2">
+          <span className="grid h-4 w-4 place-items-center rounded-full bg-muted-foreground/20 text-[10px] leading-none text-muted-foreground">–</span>
+          <span className="grid h-4 w-4 place-items-center rounded-full bg-muted-foreground/20 text-[8px] leading-none text-muted-foreground">▢</span>
+          <span className="grid h-4 w-4 place-items-center rounded-full bg-primary text-[10px] leading-none text-white">×</span>
+        </span>
       </div>
       <div className="p-5 font-mono text-sm leading-relaxed">{children}</div>
     </div>

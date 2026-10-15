@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { getProject } from "@/content/site";
 import { Page, Tag } from "@/components/site/Layout";
 import { ArchitectureDiagram } from "@/components/site/Projects";
+import { Reveal } from "@/components/site/Reveal";
 
 export const Route = createFileRoute("/projects/$slug")({
   loader: ({ params }) => {
@@ -28,10 +29,14 @@ export const Route = createFileRoute("/projects/$slug")({
 
 function Section({ title, children }: { title: string; children: ReactNode }) {
   return (
-    <section className="border-t border-border py-8">
-      <h2 className="mb-4 font-mono text-sm uppercase tracking-widest text-muted-foreground">{title}</h2>
-      {children}
-    </section>
+    <Reveal>
+      <section className="border-t border-border py-8">
+        <h2 className="mb-4 font-mono text-sm uppercase tracking-widest text-muted-foreground">
+          <span className="text-primary">#</span> {title}
+        </h2>
+        {children}
+      </section>
+    </Reveal>
   );
 }
 
@@ -44,7 +49,7 @@ function ProjectDetail() {
       <p className="mt-4 max-w-2xl text-lg text-muted-foreground">{p.summary}</p>
       <div className="mt-6 flex flex-wrap gap-1.5">{p.technologies.map((t) => <Tag key={t}>{t}</Tag>)}</div>
       <div className="mt-8 flex flex-wrap gap-3">
-        <a href={p.repo} target="_blank" rel="noreferrer" className="rounded-md bg-primary px-5 py-2.5 font-medium text-primary-foreground hover:opacity-90">
+        <a href={p.repo} target="_blank" rel="noreferrer" className="glow-hover rounded-md border border-primary bg-primary px-5 py-2.5 font-medium text-primary-foreground active:scale-[0.98]">
           View source on GitHub
         </a>
         {p.demo && <a href={p.demo} className="rounded-md border border-input px-5 py-2.5">Live demo</a>}

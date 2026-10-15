@@ -9,6 +9,16 @@ export type CommandResult =
 
 export const COMMANDS = ["help", "about", "projects", "experience", "contact", "clear"] as const;
 
+export const PROMPT_USER = "shukrullo@ubuntu";
+
+// Tab completion: returns the single allowlisted command starting with the prefix, if unique.
+export function complete(raw: string): string | undefined {
+  const prefix = raw.trim().toLowerCase();
+  if (!prefix) return undefined;
+  const hits = COMMANDS.filter((c) => c.startsWith(prefix));
+  return hits.length === 1 ? hits[0] : undefined;
+}
+
 export function runCommand(raw: string): CommandResult {
   const cmd = raw.trim().toLowerCase();
   switch (cmd) {

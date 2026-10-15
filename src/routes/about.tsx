@@ -21,7 +21,7 @@ function AboutPage() {
         Backend-focused engineer based in {profile.location}. {profile.seeking}.
       </SectionTitle>
       <div className="grid gap-6 md:grid-cols-[1.5fr_1fr]">
-        <section className="rounded-lg border border-border bg-card p-6 sm:p-8" aria-labelledby="edu">
+        <section className="glow-hover rounded-lg border border-border bg-card p-6 sm:p-8" aria-labelledby="edu">
           <h2 id="edu" className="font-mono text-sm uppercase tracking-widest text-muted-foreground">Education</h2>
           <h3 className="mt-4 text-xl font-bold">{education.university}</h3>
           <p className="mt-1">{education.field}</p>
@@ -32,7 +32,7 @@ function AboutPage() {
             <p className="font-mono text-sm text-muted-foreground">{education.exchange.period}</p>
           </div>
         </section>
-        <section className="rounded-lg border border-border bg-card p-6 sm:p-8" aria-labelledby="lang">
+        <section className="glow-hover rounded-lg border border-border bg-card p-6 sm:p-8" aria-labelledby="lang">
           <h2 id="lang" className="font-mono text-sm uppercase tracking-widest text-muted-foreground">Languages</h2>
           <dl className="mt-4 space-y-3">
             {languages.map((l) => (

@@ -7,7 +7,7 @@ export function ProjectCard({ project }: { project: Project }) {
   const small = project.tier === "supporting";
   return (
     <article
-      className={`group relative flex flex-col rounded-lg border bg-card transition-colors hover:border-primary/60 ${
+      className={`group glow-hover relative flex h-full flex-col rounded-lg border bg-card hover:-translate-y-1 ${
         featured ? "border-primary/40 p-7 sm:p-9" : small ? "border-border p-5" : "border-border p-6"
       }`}
     >
@@ -30,7 +30,9 @@ export function ProjectCard({ project }: { project: Project }) {
         {project.technologies.map((t) => <Tag key={t}>{t}</Tag>)}
       </div>
       <div className="relative z-10 mt-6 flex gap-4 font-mono text-sm">
-        <span className="text-primary group-hover:underline">Case study →</span>
+        <span className="text-primary group-hover:underline">
+          Case study <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">→</span>
+        </span>
         <a href={project.repo} target="_blank" rel="noreferrer" className="text-muted-foreground hover:text-foreground">
           Source
         </a>
@@ -46,7 +48,7 @@ export function ArchitectureDiagram({ arch }: { arch: NonNullable<Project["archi
         {arch.runtime && <p className="mb-4 font-mono text-xs text-muted-foreground">runtime: {arch.runtime}</p>}
         <div className="flex flex-col items-stretch gap-4 sm:flex-row sm:items-center">
           <Box node={arch.entry} accent />
-          <span aria-hidden className="text-center font-mono text-primary sm:px-2">→</span>
+          <span aria-hidden className="animate-pulse text-center font-mono text-primary sm:px-2">→</span>
           <div className="flex flex-1 flex-col gap-3">
             {arch.services.map((s) => <Box key={s.label} node={s} />)}
           </div>
@@ -61,7 +63,7 @@ export function ArchitectureDiagram({ arch }: { arch: NonNullable<Project["archi
 
 function Box({ node, accent }: { node: { label: string; note?: string }; accent?: boolean }) {
   return (
-    <div className={`flex-1 rounded border bg-elevated px-4 py-3 ${accent ? "border-primary/50" : "border-border"}`}>
+    <div className={`flex-1 rounded border bg-elevated px-4 py-3 transition-colors hover:border-primary ${accent ? "border-primary/50" : "border-border"}`}>
       <p className="font-mono text-sm font-bold">{node.label}</p>
       {node.note && <p className="font-mono text-xs text-muted-foreground">{node.note}</p>}
     </div>

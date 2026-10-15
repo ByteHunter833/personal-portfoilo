@@ -20,7 +20,7 @@ function ContactPage() {
       <SectionTitle cmd="./contact.sh" title="Contact">
         Open to Software Engineering Intern opportunities. Email is the fastest way to reach me.
       </SectionTitle>
-      <TerminalWindow title="contact" className="max-w-2xl">
+      <TerminalWindow title="shukrullo@ubuntu: ~/contact" className="max-w-2xl">
         <p className="text-muted-foreground"># email</p>
         <a href={`mailto:${profile.email}`} className="text-lg text-primary underline-offset-4 hover:underline break-all">{profile.email}</a>
         <p className="mt-5 text-muted-foreground"># github</p>
