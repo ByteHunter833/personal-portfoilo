@@ -35,7 +35,7 @@ export type Project = {
   demo?: string;
 };
 
-export const projects: Project[] = [
+export const projects: [Project, Project, ...Project[]] = [
   {
     slug: "online-banking-backend",
     name: "Online Banking System Backend",
