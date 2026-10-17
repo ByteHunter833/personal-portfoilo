@@ -10,11 +10,11 @@ export const profile = {
   seeking: "Seeking Software Engineering Intern opportunities",
   location: "Bukhara, Uzbekistan",
   github: "https://github.com/ByteHunter833",
-  email: "shukrulloqurbonov7@gmail.com",
-  linkedin: undefined as string | undefined,
+  email: "shukrulloqurbonov342@gmail.com",
+  linkedin: "https://www.linkedin.com/in/shukrullo-qurbonov-648934322/" as string | undefined,
   focus: ["Python", "FastAPI", "Django REST Framework", "PostgreSQL", "Redis", "Docker"],
-  // Put the PDF in public/ and set e.g. "/shukrullo-kurbonov-resume.pdf" to show the resume buttons.
-  resumeUrl: undefined as string | undefined,
+  // Served from public/; set to undefined to hide every resume button.
+  resumeUrl: "/shukrullo-kurbonov-resume.pdf" as string | undefined,
 };
 
 export type ArchNode = { label: string; note?: string };
