@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { profile } from "@/content/site";
 import { PROMPT_USER } from "@/lib/terminal";
 import { TypedText } from "./TypedText";
+import { SocialLinks } from "./SocialLinks";
 
 const nav = [
   { to: "/projects", label: "Projects" },
@@ -48,12 +49,9 @@ export function SiteHeader() {
 export function SiteFooter() {
   return (
     <footer className="border-t border-border">
-      <div className="mx-auto flex max-w-5xl flex-wrap justify-between gap-3 px-5 py-8 font-mono text-sm text-muted-foreground">
+      <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-3 px-5 py-8 font-mono text-sm text-muted-foreground">
         <span>© {new Date().getFullYear()} {profile.name}</span>
-        <span className="flex gap-4">
-          <a href={profile.github} className="hover:text-foreground" target="_blank" rel="noreferrer">GitHub</a>
-          <a href={`mailto:${profile.email}`} className="hover:text-foreground">Email</a>
-        </span>
+        <SocialLinks compact />
       </div>
     </footer>
   );

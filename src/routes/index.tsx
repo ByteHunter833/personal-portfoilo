@@ -5,6 +5,8 @@ import { ProjectCard } from "@/components/site/Projects";
 import { BootSplash } from "@/components/site/BootSplash";
 import { HeroTerminal } from "@/components/site/HeroTerminal";
 import { Reveal } from "@/components/site/Reveal";
+import { SocialLinks } from "@/components/site/SocialLinks";
+import { Download, FileText } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -40,15 +42,29 @@ function Home() {
             >
               Explore Projects
             </Link>
-            <a
-              href={profile.github}
-              target="_blank"
-              rel="noreferrer"
-              className="glow-hover rounded-md border border-input px-5 py-2.5 font-medium hover:bg-elevated active:scale-[0.98]"
-            >
-              GitHub
-            </a>
+            {profile.resumeUrl && (
+              <>
+                <a
+                  href={profile.resumeUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="glow-hover inline-flex items-center gap-2 rounded-md border border-input px-5 py-2.5 font-medium hover:bg-elevated active:scale-[0.98]"
+                >
+                  <FileText aria-hidden className="h-4 w-4" />
+                  View Resume
+                </a>
+                <a
+                  href={profile.resumeUrl}
+                  download
+                  className="glow-hover inline-flex items-center gap-2 rounded-md border border-input px-5 py-2.5 font-medium hover:bg-elevated active:scale-[0.98]"
+                >
+                  <Download aria-hidden className="h-4 w-4" />
+                  Download PDF
+                </a>
+              </>
+            )}
           </div>
+          <SocialLinks className="mt-6" />
         </div>
         <HeroTerminal start={booted} />
       </section>

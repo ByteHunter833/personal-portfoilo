@@ -10,8 +10,10 @@ export const profile = {
   seeking: "Seeking Software Engineering Intern opportunities",
   location: "Bukhara, Uzbekistan",
   github: "https://github.com/ByteHunter833",
-  email: "shukrulloqurbonov342@gmail.com",
+  email: "shukrulloqurbonov7@gmail.com",
+  linkedin: undefined as string | undefined,
   focus: ["Python", "FastAPI", "Django REST Framework", "PostgreSQL", "Redis", "Docker"],
+  // Put the PDF in public/ and set e.g. "/shukrullo-kurbonov-resume.pdf" to show the resume buttons.
   resumeUrl: undefined as string | undefined,
 };
 

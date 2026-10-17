@@ -39,7 +39,11 @@ export function runCommand(raw: string): CommandResult {
         link: { to: "/experience", label: "Open Experience" },
       };
     case "contact":
-      return { kind: "output", lines: [profile.email, profile.github], link: { to: "/contact", label: "Open Contact" } };
+      return {
+        kind: "output",
+        lines: [profile.email, profile.github, ...(profile.linkedin ? [profile.linkedin] : [])],
+        link: { to: "/contact", label: "Open Contact" },
+      };
     case "clear":
       return { kind: "clear" };
     case "":
